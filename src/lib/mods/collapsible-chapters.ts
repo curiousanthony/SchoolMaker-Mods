@@ -27,7 +27,6 @@ export const mod: Mod = {
       collapseStyle.id = "collapsible-chapters-style";
       collapseStyle.textContent = \`
         details.collapsible-chapter > summary {
-          cursor: pointer;
           list-style: none;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
@@ -54,7 +53,7 @@ export const mod: Mod = {
           flex-shrink: 0;
           margin-left: 8px;
         }
-        details[open] .collapsible-chapter-chevron {
+        details[open] > summary .collapsible-chapter-chevron {
           transform: rotate(-180deg);
         }
       \`;
@@ -90,7 +89,7 @@ export const mod: Mod = {
           while (firstChild.firstChild) {
             summary.appendChild(firstChild.firstChild);
           }
-
+          
           const chevronDownIcon = document.createElement("i");
           chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
           summary.appendChild(chevronDownIcon);
@@ -121,7 +120,7 @@ export const mod: Mod = {
     const collapseSetupObserver = () => {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (!frame || !frame.isConnected) {
-        log("[DEBUG] Frame not connected. Retrying in 500ms...");
+        log("CollapsibleChapters: Frame not connected. Retrying in 500ms...");
         setTimeout(collapseSetupObserver, 500);
         return;
       }
@@ -129,31 +128,31 @@ export const mod: Mod = {
       const collapseObserver = new MutationObserver(() => {
         const currentFrame = qs('div[data-controller="product-view"] div#product-section-view-frame');
         if (!currentFrame?.isConnected) {
-          log("[DEBUG] Frame disconnected. Resetting observer...");
+          log("CollapsibleChapters: Frame disconnected. Resetting observer...");
           collapseObserver.disconnect();
           collapseSetupObserver();
           return;
         }
 
         if (currentFrame.children.length) {
-          log("[DEBUG] Frame ready! Running transformation.");
+          log("CollapsibleChapters: Frame ready! Running transformation.");
           collapseObserver.disconnect();
           turnChaptersIntoCollapsible();
         }
       });
 
       collapseObserver.observe(frame, { childList: true, subtree: true });
-      log("[DEBUG] Observer started on connected frame.");
+      log("CollapsibleChapters: Observer started on connected frame.");
     };
 
     const collapseInit = () => {
-      log("[DEBUG] Initializing...");
+      log("CollapsibleChapters: Initializing...");
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (frame?.children.length) {
-        log("[DEBUG] Frame already ready. Running immediately.");
+        log("CollapsibleChapters: Frame already ready. Running immediately.");
         turnChaptersIntoCollapsible();
       } else {
-        log("[DEBUG] Frame empty or missing. Setting up observer...");
+        log("CollapsibleChapters: Frame empty or missing. Setting up observer...");
         collapseSetupObserver();
       }
     };
@@ -164,7 +163,7 @@ export const mod: Mod = {
         e.target.id === "product-section-view-frame" &&
         e.target.closest('div[data-controller="product-view"]')
       ) {
-        log("[DEBUG] Frame loaded via Turbo. Checking children...");
+        log("CollapsibleChapters: Frame loaded via Turbo. Checking children...");
         if (e.target.children.length) turnChaptersIntoCollapsible();
       }
     });
@@ -172,13 +171,13 @@ export const mod: Mod = {
     const fallbackCheck = setInterval(() => {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (frame?.children.length) {
-        log("[DEBUG] Frame detected via fallback. Running...");
+        log("CollapsibleChapters: Frame detected via fallback. Running...");
         clearInterval(fallbackCheck);
         turnChaptersIntoCollapsible();
       }
     }, 1000);
 
     collapseInit();
-    log("[DEBUG] Script ready. Actively monitoring program chapters.");
+    log("CollapsibleChapters: Script ready. Actively monitoring program chapters.");
   }`
 };

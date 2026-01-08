@@ -15,7 +15,6 @@ export const mod: Mod = {
   functionString: `(config) => {
     function turnChaptersIntoCollapsible() {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
-
       if (frame && !qs(".section-separator", frame)) {
         log("CollapsibleChapters: section-separator not found, aborting transformation.");
         return;
@@ -29,7 +28,7 @@ export const mod: Mod = {
       collapseStyle.textContent = \`
         details.collapsible-chapter > summary {
           cursor: pointer;
-          list-style: none; /* Hide default marker */
+          list-style: none;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -37,7 +36,7 @@ export const mod: Mod = {
           border-bottom: 1px solid #e5e7eb;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
-          display: none; /* Hide default marker in Safari */
+          display: none;
         }
         details.collapsible-chapter > summary::after {
           font-family: "Font Awesome 5 Free";
@@ -63,6 +62,9 @@ export const mod: Mod = {
           box-shadow: none;
           font-size: 1.1rem;
         }
+        details.collapsible-chapter .details-content {
+          padding: 1rem;
+        }
       \`;
 
       if (!document.getElementById(collapseStyle.id)) {
@@ -70,13 +72,11 @@ export const mod: Mod = {
       }
 
       chapters.forEach((chapter) => {
-        // Prevent re-processing an element that has already been transformed
         if (chapter.tagName === 'DETAILS' || chapter.dataset.transformed === 'true') return;
-
-        const details = document.createElement("details");
-        details.setAttribute("open", ""); // Default to open
         
-        // Copy original attributes from chapter to details
+        const details = document.createElement("details");
+        details.setAttribute("open", "");
+        
         Array.from(chapter.attributes).forEach((attr) => {
             details.setAttribute(attr.name, attr.value);
         });
@@ -89,22 +89,19 @@ export const mod: Mod = {
         if (firstChild) {
           const summary = document.createElement("summary");
 
-          // Copy original attributes from firstChild to summary
           Array.from(firstChild.attributes).forEach((attr) => {
             summary.setAttribute(attr.name, attr.value);
           });
           
           summary.classList.add("flex", "items-center", "cursor-pointer", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "pr-6");
 
-          // Move first child's content to summary
           while (firstChild.firstChild) {
             summary.appendChild(firstChild.firstChild);
           }
           details.appendChild(summary);
 
-          // Wrap remaining content
           const contentWrapper = document.createElement("div");
-          contentWrapper.className = "p-4";
+          contentWrapper.className = "details-content";
           
           while (chapter.children.length > 1) {
             contentWrapper.appendChild(chapter.children[1]);
@@ -112,7 +109,6 @@ export const mod: Mod = {
           details.appendChild(contentWrapper);
 
         } else {
-          // Fallback if structure is unexpected
           const summary = document.createElement("summary");
           summary.textContent = "Details";
           details.appendChild(summary);
@@ -124,40 +120,69 @@ export const mod: Mod = {
       });
     }
 
-    let observer;
+    const collapseSetupObserver = () => {
+      const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+      if (!frame || !frame.isConnected) {
+        log("[DEBUG] Frame not connected. Retrying in 500ms...");
+        setTimeout(collapseSetupObserver, 500);
+        return;
+      }
 
-    function setupObserver() {
-        const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
-        if (!frame || !frame.isConnected) {
-            log("CollapsibleChapters: Frame not connected, retrying...");
-            setTimeout(setupObserver, 500);
-            return;
+      const collapseObserver = new MutationObserver(() => {
+        const currentFrame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+        if (!currentFrame?.isConnected) {
+          log("[DEBUG] Frame disconnected. Resetting observer...");
+          collapseObserver.disconnect();
+          collapseSetupObserver();
+          return;
         }
 
-        if (observer) observer.disconnect(); // Disconnect previous observer
+        if (currentFrame.children.length) {
+          log("[DEBUG] Frame ready! Running transformation.");
+          collapseObserver.disconnect();
+          turnChaptersIntoCollapsible();
+        }
+      });
 
-        observer = new MutationObserver((mutations) => {
-            log("CollapsibleChapters: DOM changed, re-running transformation.");
-            // We only need to run the transformation, not disconnect.
-            // The check inside turnChaptersIntoCollapsible prevents re-processing.
-            turnChaptersIntoCollapsible();
-        });
+      collapseObserver.observe(frame, { childList: true, subtree: true });
+      log("[DEBUG] Observer started on connected frame.");
+    };
 
-        observer.observe(frame, { childList: true, subtree: true });
-        log("CollapsibleChapters: Observer started.");
-        
-        // Initial run in case content is already there
+    const collapseInit = () => {
+      log("[DEBUG] Initializing...");
+      const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+      if (frame?.children.length) {
+        log("[DEBUG] Frame already ready. Running immediately.");
         turnChaptersIntoCollapsible();
-    }
+      } else {
+        log("[DEBUG] Frame empty or missing. Setting up observer...");
+        collapseSetupObserver();
+      }
+    };
 
-    // This ensures the setup only runs once.
-    if (!window.collapsibleChaptersInitialized) {
-        log("CollapsibleChapters: Initializing...");
-        setupObserver();
-        window.collapsibleChaptersInitialized = true;
-    } else {
-       // If already initialized, just run the transformation in case of Turbo navigation
-       turnChaptersIntoCollapsible();
-    }
-}`
+    document.addEventListener("turbo:load", collapseInit);
+    document.addEventListener("turbo:frame-load", (e) => {
+      if (
+        e.target.id === "product-section-view-frame" &&
+        e.target.closest('div[data-controller="product-view"]')
+      ) {
+        log("[DEBUG] Frame loaded via Turbo. Checking children...");
+        if (e.target.children.length) turnChaptersIntoCollapsible();
+      }
+    });
+
+    const fallbackCheck = setInterval(() => {
+      const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+      if (frame?.children.length) {
+        log("[DEBUG] Frame detected via fallback. Running...");
+        clearInterval(fallbackCheck);
+        turnChaptersIntoCollapsible();
+      }
+    }, 1000);
+
+    collapseInit();
+    log("[DEBUG] Script ready. Actively monitoring program chapters.");
+  }`
 };
+
+    

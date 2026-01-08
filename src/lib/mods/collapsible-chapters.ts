@@ -13,10 +13,6 @@ export const mod: Mod = {
   mediaUrl: '/images/mods/collapsible-chapters-after.webm',
   previewEnabled: true,
   functionString: `(config) => {
-    /**
-     * Section groups (aka Chapters) become collapsible elements
-     * by converting them to details/summary
-     */
     function turnChaptersIntoCollapsible() {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
 
@@ -78,17 +74,15 @@ export const mod: Mod = {
         if (chapter.tagName === 'DETAILS' || chapter.dataset.transformed === 'true') return;
 
         const details = document.createElement("details");
-        details.className = "collapsible-chapter";
+        details.setAttribute("open", ""); // Default to open
         
         // Copy original attributes from chapter to details
         Array.from(chapter.attributes).forEach((attr) => {
             details.setAttribute(attr.name, attr.value);
         });
-        
-        details.setAttribute("open", ""); // Default to open
         chapter.dataset.transformed = 'true';
         
-        details.classList.add("!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
+        details.classList.add("collapsible-chapter", "!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
         details.classList.remove("gap-5");
 
         const firstChild = qs("div.section-separator", chapter);
@@ -130,7 +124,6 @@ export const mod: Mod = {
       });
     }
 
-    // --- Observer and Initialization Logic ---
     let observer;
 
     function setupObserver() {
@@ -145,21 +138,26 @@ export const mod: Mod = {
 
         observer = new MutationObserver((mutations) => {
             log("CollapsibleChapters: DOM changed, re-running transformation.");
+            // We only need to run the transformation, not disconnect.
+            // The check inside turnChaptersIntoCollapsible prevents re-processing.
             turnChaptersIntoCollapsible();
         });
 
         observer.observe(frame, { childList: true, subtree: true });
         log("CollapsibleChapters: Observer started.");
         
-        // Initial run
+        // Initial run in case content is already there
         turnChaptersIntoCollapsible();
     }
 
-    function init() {
-      log("CollapsibleChapters: Initializing...");
-      setupObserver();
+    // This ensures the setup only runs once.
+    if (!window.collapsibleChaptersInitialized) {
+        log("CollapsibleChapters: Initializing...");
+        setupObserver();
+        window.collapsibleChaptersInitialized = true;
+    } else {
+       // If already initialized, just run the transformation in case of Turbo navigation
+       turnChaptersIntoCollapsible();
     }
-    
-    init();
 }`
 };

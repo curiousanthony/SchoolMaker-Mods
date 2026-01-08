@@ -93,6 +93,7 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
+          summary.classList.remove("pr-6")
           summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6", "cursor-pointer");
 
           const chevronDownIcon = document.createElement("i");

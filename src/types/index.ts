@@ -34,5 +34,4 @@ export interface Mod {
   mediaBeforeUrl?: string;
   previewEnabled?: boolean;
   requiresGoogleIcons?: boolean;
-  requiresFontAwesome?: boolean;
 }

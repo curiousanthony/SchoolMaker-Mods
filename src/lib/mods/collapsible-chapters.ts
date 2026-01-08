@@ -10,7 +10,6 @@ export const mod: Mod = {
   enabled: false,
   published: true,
   modType: 'javascript',
-  requiresFontAwesome: true,
   mediaUrl: '/images/mods/collapsible-chapters-after.webm',
   previewEnabled: true,
   functionString: `(config) => {
@@ -164,5 +163,3 @@ export const mod: Mod = {
     init();
 }`
 };
-
-    

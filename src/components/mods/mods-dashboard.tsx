@@ -156,7 +156,10 @@ export default function ModsDashboard() {
             );
 
             // Calculate the count based on the *currently filtered* list.
-            const count = currentlyFilteredMods.filter(mod => mod.tags.includes(tag)).length;
+            const count = isSelected 
+              ? currentlyFilteredMods.length 
+              : currentlyFilteredMods.filter(mod => mod.tags.includes(tag)).length;
+
             
             // If the tag is not selected and no mods in the current view have it, don't show it.
             if (!isSelected && count === 0 && activeTags.length > 0) {
@@ -166,9 +169,7 @@ export default function ModsDashboard() {
             return {
                 key: tag,
                 display: t(`tag_${tag}` as any),
-                // If the tag is selected, show the count of mods with that tag.
-                // If not selected, show how many would be added if it were selected.
-                count: isSelected ? count : currentlyFilteredMods.filter(m => m.tags.includes(tag)).length,
+                count: count
             };
         })
         .filter(Boolean) as { key: string; display: string; count: number }[];
@@ -273,14 +274,10 @@ export default function ModsDashboard() {
     const fontMod = enabledMods.find(m => m.id === 'global-font-customizer');
     const selectedFont = fontMod?.configOptions?.find(o => o.key === 'fontFamily')?.value;
     const needsGoogleIcons = enabledMods.some(mod => mod.requiresGoogleIcons);
-    const needsFontAwesome = enabledMods.some(mod => mod.requiresFontAwesome);
     
     const links: string[] = [];
     if (needsGoogleIcons) {
       links.push('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,0" />');
-    }
-     if (needsFontAwesome) {
-      links.push('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />');
     }
     if (selectedFont) {
       const fontUrl = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(/ /g, '+')}:wght@400;700&display=swap`;

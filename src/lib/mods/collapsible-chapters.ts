@@ -33,7 +33,7 @@ export const mod: Mod = {
 
           border-bottom: 1px solid #e5e7eb;
         }
-        details.collapsible-chapter > summary::-webkit-details-marker {
+        details > summary::-webkit-details-marker {
           display: none;
         }
         .section-separator .section-separator-dashed-border {
@@ -49,9 +49,7 @@ export const mod: Mod = {
           box-shadow: none;
           font-size: 1.1rem;
         }
-        /*details.collapsible-chapter .details-content {
-          padding: 1rem;
-        }*/
+        
         .collapsible-chapter-chevron {
           transition: transform 0.2s ease-in-out;
           flex-shrink: 0;

@@ -26,7 +26,7 @@ export const mod: Mod = {
       const collapseStyle = document.createElement("style");
       collapseStyle.id = "collapsible-chapters-style";
       collapseStyle.textContent = \`
-        details.collapsible-chapter > summary {
+        #product-section-view-frame > details > summary {
           /*cursor: pointer;*/
           list-style: none;
 

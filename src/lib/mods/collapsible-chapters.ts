@@ -38,6 +38,7 @@ export const mod: Mod = {
           align-items: center;
           justify-content: space-between;
           position: relative;
+          border-bottom: 1px solid #e5e7eb;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
           display: none; /* Hide default marker in Safari */
@@ -59,6 +60,7 @@ export const mod: Mod = {
         .section-separator .section-separator-title {
           background: none;
           border: none;
+          border-radius: none;
           color: inherit;
           font-weight: bold;
           padding: 0;
@@ -79,20 +81,20 @@ export const mod: Mod = {
         details.className = "collapsible-chapter";
         details.setAttribute("open", ""); // Default to open
         chapter.dataset.transformed = 'true';
-
-        // Copy original attributes
-        Array.from(chapter.attributes).forEach((attr) => {
-          if (attr.name !== 'class' && attr.name !== 'data-transformed') {
-            details.setAttribute(attr.name, attr.value);
-          }
-        });
         
-        details.classList.add("bg-neutral-50", "border", "rounded-lg", "overflow-hidden", "mb-4", "shadow-sm", "border-gray-300");
+        details.classList.add("!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
+        details.classList.remove("gap-5");
 
         const firstChild = qs("div.section-separator", chapter);
         if (firstChild) {
           const summary = document.createElement("summary");
-          summary.classList.add("flex", "items-center", "justify-between", "py-4", "px-6", "bg-white", "hover:bg-neutral-50", "my-0");
+
+          // Copy original attributes from firstChild to summary
+          Array.from(firstChild.attributes).forEach((attr) => {
+            summary.setAttribute(attr.name, attr.value);
+          });
+          
+          summary.classList.add("flex", "items-center", "cursor-pointer", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "pr-6");
 
           // Move first child's content to summary
           while (firstChild.firstChild) {

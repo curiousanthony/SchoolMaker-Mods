@@ -27,7 +27,7 @@ export const mod: Mod = {
       collapseStyle.id = "collapsible-chapters-style";
       collapseStyle.textContent = \`
         details.collapsible-chapter > summary {
-          cursor: pointer;
+          /*cursor: pointer;*/
           list-style: none;
 
           border-bottom: 1px solid #e5e7eb;
@@ -48,9 +48,9 @@ export const mod: Mod = {
           box-shadow: none;
           font-size: 1.1rem;
         }
-        details.collapsible-chapter .details-content {
+        /*details.collapsible-chapter .details-content {
           padding: 1rem;
-        }
+        }*/
         .collapsible-chapter-chevron {
           transition: transform 0.2s ease-in-out;
           flex-shrink: 0;

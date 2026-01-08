@@ -10,6 +10,7 @@ export const mod: Mod = {
   enabled: false,
   published: true,
   modType: 'javascript',
+  mediaBeforeUrl: '/images/mods/collapsible-chapters-before.webm',
   mediaUrl: '/images/mods/collapsible-chapters-after.webm',
   previewEnabled: true,
   functionString: `(config) => {

@@ -29,25 +29,9 @@ export const mod: Mod = {
         details.collapsible-chapter > summary {
           cursor: pointer;
           list-style: none;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-          border-bottom: 1px solid #e5e7eb;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
           display: none;
-        }
-        details.collapsible-chapter > summary::after {
-          font-family: "Font Awesome 5 Free";
-          font-weight: 900;
-          content: '\\\\f078'; /* fa-chevron-down */
-          transition: transform 0.2s ease-in-out;
-          flex-shrink: 0;
-          margin-left: 8px;
-        }
-        details.collapsible-chapter[open] > summary::after {
-          transform: rotate(-180deg);
         }
         .section-separator .section-separator-dashed-border {
           display: none;
@@ -64,6 +48,14 @@ export const mod: Mod = {
         }
         details.collapsible-chapter .details-content {
           padding: 1rem;
+        }
+        .collapsible-chapter-chevron {
+          transition: transform 0.2s ease-in-out;
+          flex-shrink: 0;
+          margin-left: 8px;
+        }
+        details[open] .collapsible-chapter-chevron {
+          transform: rotate(-180deg);
         }
       \`;
 
@@ -93,16 +85,22 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.add("flex", "items-center", "cursor-pointer", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "pr-6");
+          summary.classList.add("flex", "items-center", "cursor-pointer", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
 
           while (firstChild.firstChild) {
             summary.appendChild(firstChild.firstChild);
           }
+
+          const chevronDownIcon = document.createElement("i");
+          chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
+          summary.appendChild(chevronDownIcon);
+          
           details.appendChild(summary);
 
           const contentWrapper = document.createElement("div");
           contentWrapper.className = "details-content";
           
+          // Move remaining children
           while (chapter.children.length > 1) {
             contentWrapper.appendChild(chapter.children[1]);
           }
@@ -184,5 +182,3 @@ export const mod: Mod = {
     log("[DEBUG] Script ready. Actively monitoring program chapters.");
   }`
 };
-
-    

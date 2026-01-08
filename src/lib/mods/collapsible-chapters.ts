@@ -1,3 +1,4 @@
+
 import type { Mod } from '@/types';
 
 export const mod: Mod = {
@@ -79,6 +80,12 @@ export const mod: Mod = {
 
         const details = document.createElement("details");
         details.className = "collapsible-chapter";
+        
+        // Copy original attributes from chapter to details
+        Array.from(chapter.attributes).forEach((attr) => {
+            details.setAttribute(attr.name, attr.value);
+        });
+        
         details.setAttribute("open", ""); // Default to open
         chapter.dataset.transformed = 'true';
         
@@ -157,3 +164,5 @@ export const mod: Mod = {
     init();
 }`
 };
+
+    

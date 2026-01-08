@@ -29,6 +29,8 @@ export const mod: Mod = {
         details.collapsible-chapter > summary {
           cursor: pointer;
           list-style: none;
+
+          border-bottom: 1px solid #e5e7eb;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
           display: none;
@@ -56,7 +58,12 @@ export const mod: Mod = {
         }
         details[open] > summary .collapsible-chapter-chevron {
           transform-origin: center;
-          transform: rotate(180deg);
+          transform: rotate(-180deg);
+        }
+
+        [data-target^="product-view.galleryContainer"],
+        [data-target^="product-view.listContainer"] {
+          gap: 1.25rem !important; /* gap-5 */
         }
       \`;
 
@@ -75,7 +82,7 @@ export const mod: Mod = {
         });
         chapter.dataset.transformed = 'true';
         
-        details.classList.add("!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
+        details.classList.add("!rounded-lg", "md:!rounded-xl", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
         details.classList.remove("gap-5");
 
         const firstChild = qs("div.section-separator", chapter);
@@ -86,7 +93,7 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
+          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6", "cursor-pointer");
 
           const chevronDownIcon = document.createElement("i");
           chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
@@ -99,7 +106,7 @@ export const mod: Mod = {
           details.appendChild(summary);
 
           const contentWrapper = document.createElement("div");
-          contentWrapper.className = "details-content";
+          contentWrapper.classList.add("details-content", "p-5");
           
           while (chapter.children.length > 1) {
             contentWrapper.appendChild(chapter.children[1]);

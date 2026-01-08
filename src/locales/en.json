@@ -138,6 +138,8 @@
   "mod_unread-notification-title-indicator_name": "Unread Notification Title Indicator",
   "mod_unread-notification-title-indicator_description": "Adds a symbol prefix like \"(!)\" to the page title to indicate when there are unread notifications.",
   "mod_unread-notification-title-indicator_config_notificationSymbol_label": "Notification Symbol",
+  "mod_collapsible-chapters_name": "Collapsible Chapters",
+  "mod_collapsible-chapters_description": "Transforms program's section groups (chapters) into collapsible elements for a cleaner and more organized user experience.",
   "category_all": "All",
   "category_appearance": "Appearance",
   "category_functionality": "Functionality",

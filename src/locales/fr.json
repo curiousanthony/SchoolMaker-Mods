@@ -138,6 +138,8 @@
   "mod_unread-notification-title-indicator_name": "Indicateur de notification dans l'onglet",
   "mod_unread-notification-title-indicator_description": "Ajoute un préfixe comme \"(!)\" au titre de l'onglet pour indiquer les notifications non lues.",
   "mod_unread-notification-title-indicator_config_notificationSymbol_label": "Symbole de notification",
+  "mod_collapsible-chapters_name": "Chapitres Pliables",
+  "mod_collapsible-chapters_description": "Transforme les groupes de sections (chapitres) d'un programme en éléments pliables pour une expérience utilisateur plus propre et organisée.",
   "category_all": "Tous",
   "category_appearance": "Apparence",
   "category_functionality": "Fonctionnalité",

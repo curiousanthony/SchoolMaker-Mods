@@ -27,6 +27,7 @@ export const mod: Mod = {
       collapseStyle.id = "collapsible-chapters-style";
       collapseStyle.textContent = \`
         details.collapsible-chapter > summary {
+          cursor: pointer;
           list-style: none;
         }
         details.collapsible-chapter > summary::-webkit-details-marker {
@@ -54,7 +55,8 @@ export const mod: Mod = {
           margin-left: 8px;
         }
         details[open] > summary .collapsible-chapter-chevron {
-          transform: rotate(-180deg);
+          transform-origin: center;
+          transform: rotate(180deg);
         }
       \`;
 
@@ -73,7 +75,7 @@ export const mod: Mod = {
         });
         chapter.dataset.transformed = 'true';
         
-        details.classList.add("collapsible-chapter", "!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
+        details.classList.add("!rounded-lg", "md:!rounded-lg", "overflow-hidden", "mb-4", "bg-neutral-50", "border", "border-gray-300", "shadow-sm");
         details.classList.remove("gap-5");
 
         const firstChild = qs("div.section-separator", chapter);
@@ -84,14 +86,14 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.add("flex", "items-center", "cursor-pointer", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
+          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-4", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
 
+          const chevronDownIcon = document.createElement("i");
+          chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
+          
           while (firstChild.firstChild) {
             summary.appendChild(firstChild.firstChild);
           }
-          
-          const chevronDownIcon = document.createElement("i");
-          chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
           summary.appendChild(chevronDownIcon);
           
           details.appendChild(summary);
@@ -99,7 +101,6 @@ export const mod: Mod = {
           const contentWrapper = document.createElement("div");
           contentWrapper.className = "details-content";
           
-          // Move remaining children
           while (chapter.children.length > 1) {
             contentWrapper.appendChild(chapter.children[1]);
           }

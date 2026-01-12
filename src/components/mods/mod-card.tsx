@@ -24,13 +24,8 @@ export default function ModCard({ mod, layout, onToggle, onConfigure, onPreview,
   
   const canEnable = isConfigValid || mod.enabled;
 
-  const isGrid = layout === 'grid';
-
   const BannerImage = () => mod.bannerUrl ? (
-    <div className={cn(
-      "relative bg-muted flex-shrink-0",
-      isGrid ? "w-full aspect-[16/9]" : "w-48 aspect-[16/9]"
-    )}>
+    <div className="relative bg-muted w-full aspect-[16/9]">
       <Image
         src={mod.bannerUrl}
         alt={`Banner for ${modName}`}
@@ -42,10 +37,7 @@ export default function ModCard({ mod, layout, onToggle, onConfigure, onPreview,
   ) : null;
 
   return (
-    <Card className={cn(
-        "hover:shadow-lg transition-shadow duration-300 overflow-hidden",
-        isGrid ? "flex flex-col" : "flex flex-row"
-      )}>
+    <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col">
       <BannerImage />
       <div className="flex flex-col flex-grow">
         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">

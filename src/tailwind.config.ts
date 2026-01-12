@@ -16,7 +16,7 @@ export default {
     'text-pink-500',
     'text-indigo-500',
     'text-gray-500',
-    'text-primary-500',
+    'text-primary',
     'bg-green-500',
     'bg-blue-500',
     'bg-yellow-500',
@@ -25,7 +25,7 @@ export default {
     'bg-pink-500',
     'bg-indigo-500',
     'bg-gray-500',
-    'bg-primary-500'
+    'bg-primary'
   ],
   theme: {
     extend: {
@@ -48,7 +48,6 @@ export default {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          '500': 'hsl(var(--primary))'
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',

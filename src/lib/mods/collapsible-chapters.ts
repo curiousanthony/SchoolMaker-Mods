@@ -93,7 +93,8 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6", "cursor-pointer");
+          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
+          summary.classList.add("cursor-pointer");
 
           const chevronDownIcon = document.createElement("i");
           chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
@@ -124,7 +125,7 @@ export const mod: Mod = {
         chapter.replaceWith(details);
       });
     }
-
+    
     const collapseSetupObserver = () => {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (!frame || !frame.isConnected) {
@@ -159,6 +160,7 @@ export const mod: Mod = {
         log("CollapsibleChapters: Not on a program page. Mod will not run.");
         return;
       }
+
       log("CollapsibleChapters: Initializing...");
 
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
@@ -185,6 +187,7 @@ export const mod: Mod = {
     const fallbackCheck = setInterval(() => {
       const productViewEl = qs('div[data-controller="product-view"]');
       if (!productViewEl) {
+        // Not on a program page, so we can stop checking.
         clearInterval(fallbackCheck);
         return;
       }

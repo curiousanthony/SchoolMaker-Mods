@@ -7,7 +7,7 @@ export const mod: Mod = {
   category: 'Functionality',
   tags: ['lessons', 'q&a', 'ux'],
   enabled: false,
-  published: true,
+  published: false,
   bannerUrl: '/images/mods/placeholder-banner.png',
   modType: 'javascript',
   functionString: `(config) => {

@@ -93,8 +93,7 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6");
-          summary.classList.add("cursor-pointer");
+          summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6", "cursor-pointer");
 
           const chevronDownIcon = document.createElement("i");
           chevronDownIcon.classList.add("fas", "fa-chevron-down", "text-gray-500", "collapsible-chapter-chevron");
@@ -160,7 +159,6 @@ export const mod: Mod = {
         log("CollapsibleChapters: Not on a program page. Mod will not run.");
         return;
       }
-
       log("CollapsibleChapters: Initializing...");
 
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');

@@ -28,10 +28,8 @@ export const mod: Mod = {
       collapseStyle.id = "collapsible-chapters-style";
       collapseStyle.textContent = \`
         #product-section-view-frame > details > summary {
-          /*cursor: pointer;*/
+          cursor: pointer;
           list-style: none;
-
-          border-bottom: 1px solid #e5e7eb;
         }
         details > summary::-webkit-details-marker {
           display: none;
@@ -64,6 +62,9 @@ export const mod: Mod = {
         [data-target^="product-view.listContainer"] {
           gap: 1.25rem !important; /* gap-5 */
         }
+        .details-content {
+           padding: 1.25rem; /* p-5 */
+        }
       \`;
 
       if (!document.getElementById(collapseStyle.id)) {
@@ -92,7 +93,6 @@ export const mod: Mod = {
             summary.setAttribute(attr.name, attr.value);
           });
           
-          summary.classList.remove("pr-6")
           summary.classList.add("flex", "items-center", "justify-between", "overflow-hidden", "py-5", "bg-white", "hover:bg-neutral-50", "!my-0", "px-6", "cursor-pointer");
 
           const chevronDownIcon = document.createElement("i");
@@ -106,7 +106,7 @@ export const mod: Mod = {
           details.appendChild(summary);
 
           const contentWrapper = document.createElement("div");
-          contentWrapper.classList.add("details-content", "p-5");
+          contentWrapper.classList.add("details-content");
           
           while (chapter.children.length > 1) {
             contentWrapper.appendChild(chapter.children[1]);
@@ -154,7 +154,13 @@ export const mod: Mod = {
     };
 
     const collapseInit = () => {
+      const productViewEl = qs('div[data-controller="product-view"]');
+      if (!productViewEl) {
+        log("CollapsibleChapters: Not on a program page. Mod will not run.");
+        return;
+      }
       log("CollapsibleChapters: Initializing...");
+
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (frame?.children.length) {
         log("CollapsibleChapters: Frame already ready. Running immediately.");
@@ -177,6 +183,11 @@ export const mod: Mod = {
     });
 
     const fallbackCheck = setInterval(() => {
+      const productViewEl = qs('div[data-controller="product-view"]');
+      if (!productViewEl) {
+        clearInterval(fallbackCheck);
+        return;
+      }
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (frame?.children.length) {
         log("CollapsibleChapters: Frame detected via fallback. Running...");
@@ -187,5 +198,5 @@ export const mod: Mod = {
 
     collapseInit();
     log("CollapsibleChapters: Script ready. Actively monitoring program chapters.");
-  }`
+  }`,
 };

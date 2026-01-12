@@ -29,7 +29,7 @@ export default function ModCard({ mod, layout, onToggle, onConfigure, onPreview,
   const BannerImage = () => mod.bannerUrl ? (
     <div className={cn(
       "relative bg-muted flex-shrink-0",
-      isGrid ? "w-full aspect-[16/9]" : "w-1/3 md:w-48 aspect-[4/3]"
+      isGrid ? "w-full aspect-[16/9]" : "w-1/3 md:w-48 aspect-[16/9]"
     )}>
       <Image
         src={mod.bannerUrl}

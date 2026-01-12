@@ -12,6 +12,7 @@ export const mod: Mod = {
   mediaBeforeUrl: '/images/mods/sidebar-toggle-customizer-before.webm',
   mediaUrl: '/images/mods/sidebar-toggle-customizer-after.webm',
   previewEnabled: true,
+  bannerUrl: '/images/mods/sidebar-toggle-customizer-banner.png',
   requiresGoogleIcons: true,
   configOptions: [
     {

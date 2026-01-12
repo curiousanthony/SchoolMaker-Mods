@@ -68,7 +68,7 @@ export default function ModsDashboard() {
         setSearchQuery(savedState.searchQuery || '');
         setActiveCategory(savedState.activeCategory || 'All');
         setActiveTags(savedState.activeTags || []);
-        setLayout(savedState.layout || 'grid');
+        // setLayout(savedState.layout || 'grid');
       }
     } catch (error) {
       console.error("Failed to load state from localStorage", error);
@@ -92,13 +92,13 @@ export default function ModsDashboard() {
         searchQuery,
         activeCategory,
         activeTags,
-        layout,
+        // layout,
       };
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
       console.error("Failed to save state to localStorage", error);
     }
-  }, [isMounted, mods, searchQuery, activeCategory, activeTags, layout]);
+  }, [isMounted, mods, searchQuery, activeCategory, activeTags]);
 
   
  const filteredMods = useMemo(() => {
@@ -538,7 +538,7 @@ export default function ModsDashboard() {
                           <p className="text-sm text-muted-foreground font-medium">({t('showingMods', {count: filteredMods.length})})</p>
                       </div>
                    
-                    {!isMobile && (
+                    {/* {!isMobile && (
                       <div className="flex items-center gap-2 order-3 ml-auto">
                           <Button variant={layout === 'grid' ? 'default' : 'outline'} size="sm" onClick={() => setLayout('grid')}>
                             <LayoutGrid className="mr-2 h-4 w-4" />
@@ -549,23 +549,18 @@ export default function ModsDashboard() {
                             {t('layoutList')}
                           </Button>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
             </div>
 
 
-            <div className={cn(
-              "grid gap-4 transition-all",
-              layout === 'grid' && !isMobile
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                : 'grid-cols-1'
-            )}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all">
                 {filteredMods.map(mod =>
                   <ModCard
                       key={mod.id}
                       mod={mod}
-                      layout={isMobile ? 'grid' : layout}
+                      layout={'grid'}
                       onToggle={() => handleToggleMod(mod.id)}
                       onConfigure={() => handleOpenConfig(mod)}
                       onPreview={() => setPreviewingMod(mod)}
@@ -649,5 +644,6 @@ export default function ModsDashboard() {
 }
 
     
+
 
 

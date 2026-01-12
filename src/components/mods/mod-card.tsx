@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Settings, Eye, AlertCircle } from 'lucide-react';
 import { useTranslations } from '@/hooks/use-translations';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import Image from 'next/image';
 
 interface ModCardProps {
   mod: Mod;
@@ -22,7 +23,18 @@ export default function ModCard({ mod, onToggle, onConfigure, onPreview, isConfi
   const canEnable = isConfigValid || mod.enabled;
 
   return (
-    <Card className="flex flex-col hover:shadow-lg transition-shadow duration-300">
+    <Card className="flex flex-col hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+      {mod.bannerUrl && (
+        <div className="relative w-full aspect-[16/9] bg-muted">
+          <Image
+            src={mod.bannerUrl}
+            alt={`Banner for ${modName}`}
+            fill
+            className="object-cover"
+            data-ai-hint="abstract feature illustration"
+          />
+        </div>
+      )}
       <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
         <div className="space-y-1 pr-2">
             <CardTitle className="font-headline text-xl flex items-center gap-2">

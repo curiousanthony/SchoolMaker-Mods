@@ -32,6 +32,8 @@ export interface Mod {
   mediaUrl?: string;
   /** A URL or a local path for the "Before" preview image. */
   mediaBeforeUrl?: string;
+  /** An optional URL or local path for a banner image to be displayed on the mod card. */
+  bannerUrl?: string;
   previewEnabled?: boolean;
   requiresGoogleIcons?: boolean;
 }

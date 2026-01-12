@@ -1,4 +1,3 @@
-
 import type { Mod } from '@/types';
 
 export const mod: Mod = {
@@ -10,64 +9,63 @@ export const mod: Mod = {
   enabled: false,
   published: true,
   modType: 'javascript',
+  bannerUrl: 'https://picsum.photos/seed/collapsible/600/338',
   mediaBeforeUrl: '/images/mods/collapsible-chapters-before.webm',
   mediaUrl: '/images/mods/collapsible-chapters-after.webm',
   previewEnabled: true,
   functionString: `(config) => {
     function turnChaptersIntoCollapsible() {
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+
       if (frame && !qs(".section-separator", frame)) {
-        log("CollapsibleChapters: section-separator not found, aborting transformation.");
+        log("CollapsibleChapters: section-separator not found, aborting transformation");
         return;
       }
 
       const chapters = qsa('div[data-controller="product-view"] div#product-section-view-frame > div');
-      log("CollapsibleChapters: Found " + chapters.length + " chapter elements.");
-
-      const collapseStyle = document.createElement("style");
-      collapseStyle.id = "collapsible-chapters-style";
-      collapseStyle.textContent = \`
-        #product-section-view-frame > details > summary {
-          cursor: pointer;
-          list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-          display: none;
-        }
-        .section-separator .section-separator-dashed-border {
-          display: none;
-        }
-        .section-separator .section-separator-title {
-          background: none;
-          border: none;
-          border-radius: none;
-          color: inherit;
-          font-weight: bold;
-          padding: 0;
-          box-shadow: none;
-          font-size: 1.1rem;
-        }
-        
-        .collapsible-chapter-chevron {
-          transition: transform 0.2s ease-in-out;
-          flex-shrink: 0;
-          margin-left: 8px;
-        }
-        details[open] > summary .collapsible-chapter-chevron {
-          transform-origin: center;
-          transform: rotate(-180deg);
-        }
-
-        [data-target^="product-view.galleryContainer"],
-        [data-target^="product-view.listContainer"] {
-          gap: 1.25rem !important; /* gap-5 */
-        }
-        .details-content {
-           padding: 1.25rem; /* p-5 */
-        }
-      \`;
-
-      if (!document.getElementById(collapseStyle.id)) {
+      
+      const styleId = 'collapsible-chapters-style';
+      if (!document.getElementById(styleId)) {
+        const collapseStyle = document.createElement("style");
+        collapseStyle.id = styleId;
+        collapseStyle.textContent = \`
+          #product-section-view-frame > details > summary {
+            cursor: pointer;
+            list-style: none;
+          }
+          details > summary::-webkit-details-marker {
+            display: none;
+          }
+          .section-separator .section-separator-dashed-border {
+            display: none;
+          }
+          .section-separator .section-separator-title {
+            background: none;
+            border: none;
+            border-radius: none;
+            color: inherit;
+            font-weight: bold;
+            padding: 0;
+            box-shadow: none;
+            font-size: 1.1rem;
+          }
+          .collapsible-chapter-chevron {
+            transition: transform 0.2s ease-in-out;
+            flex-shrink: 0;
+            margin-left: 8px;
+            transform-origin: center;
+          }
+          details[open] > summary .collapsible-chapter-chevron {
+            transform: rotate(180deg);
+          }
+          [data-target^="product-view.galleryContainer"],
+          [data-target^="product-view.listContainer"] {
+            gap: 1.25rem !important;
+          }
+          .details-content {
+            padding: 1.25rem;
+          }
+        \`;
         document.head.appendChild(collapseStyle);
       }
 
@@ -78,7 +76,7 @@ export const mod: Mod = {
         details.setAttribute("open", "");
         
         Array.from(chapter.attributes).forEach((attr) => {
-            details.setAttribute(attr.name, attr.value);
+          details.setAttribute(attr.name, attr.value);
         });
         chapter.dataset.transformed = 'true';
         
@@ -125,34 +123,6 @@ export const mod: Mod = {
       });
     }
     
-    const collapseSetupObserver = () => {
-      const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
-      if (!frame || !frame.isConnected) {
-        log("CollapsibleChapters: Frame not connected. Retrying in 500ms...");
-        setTimeout(collapseSetupObserver, 500);
-        return;
-      }
-
-      const collapseObserver = new MutationObserver(() => {
-        const currentFrame = qs('div[data-controller="product-view"] div#product-section-view-frame');
-        if (!currentFrame?.isConnected) {
-          log("CollapsibleChapters: Frame disconnected. Resetting observer...");
-          collapseObserver.disconnect();
-          collapseSetupObserver();
-          return;
-        }
-
-        if (currentFrame.children.length) {
-          log("CollapsibleChapters: Frame ready! Running transformation.");
-          collapseObserver.disconnect();
-          turnChaptersIntoCollapsible();
-        }
-      });
-
-      collapseObserver.observe(frame, { childList: true, subtree: true });
-      log("CollapsibleChapters: Observer started on connected frame.");
-    };
-
     const collapseInit = () => {
       const productViewEl = qs('div[data-controller="product-view"]');
       if (!productViewEl) {
@@ -167,16 +137,42 @@ export const mod: Mod = {
         turnChaptersIntoCollapsible();
       } else {
         log("CollapsibleChapters: Frame empty or missing. Setting up observer...");
-        collapseSetupObserver();
+        
+        let observer;
+        const setupObserver = () => {
+            const frameForObserver = qs('div[data-controller="product-view"] div#product-section-view-frame');
+            if (!frameForObserver || !frameForObserver.isConnected) {
+                log("CollapsibleChapters: Frame not connected. Retrying in 500ms...");
+                setTimeout(setupObserver, 500);
+                return;
+            }
+
+            observer = new MutationObserver(() => {
+                const currentFrame = qs('div[data-controller="product-view"] div#product-section-view-frame');
+                if (!currentFrame?.isConnected) {
+                    log("CollapsibleChapters: Frame disconnected. Resetting observer...");
+                    if (observer) observer.disconnect();
+                    setupObserver();
+                    return;
+                }
+
+                if (currentFrame.children.length) {
+                    log("CollapsibleChapters: Frame ready! Running transformation.");
+                    if (observer) observer.disconnect();
+                    turnChaptersIntoCollapsible();
+                }
+            });
+
+            observer.observe(frameForObserver, { childList: true, subtree: true });
+            log("CollapsibleChapters: Observer started on connected frame.");
+        };
+        setupObserver();
       }
     };
 
     document.addEventListener("turbo:load", collapseInit);
     document.addEventListener("turbo:frame-load", (e) => {
-      if (
-        e.target.id === "product-section-view-frame" &&
-        e.target.closest('div[data-controller="product-view"]')
-      ) {
+      if ( e.target.id === "product-section-view-frame" && e.target.closest('div[data-controller="product-view"]') ) {
         log("CollapsibleChapters: Frame loaded via Turbo. Checking children...");
         if (e.target.children.length) turnChaptersIntoCollapsible();
       }
@@ -185,9 +181,8 @@ export const mod: Mod = {
     const fallbackCheck = setInterval(() => {
       const productViewEl = qs('div[data-controller="product-view"]');
       if (!productViewEl) {
-        // Not on a program page, so we can stop checking.
-        clearInterval(fallbackCheck);
-        return;
+          clearInterval(fallbackCheck);
+          return;
       }
       const frame = qs('div[data-controller="product-view"] div#product-section-view-frame');
       if (frame?.children.length) {

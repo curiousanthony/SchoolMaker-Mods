@@ -12,6 +12,7 @@ export const mod: Mod = {
   previewEnabled: true,
   mediaBeforeUrl: '/images/mods/horizontal-payment-plans-before.png',
   mediaUrl: '/images/mods/horizontal-payment-plans-after.png',
+  bannerUrl: '/images/mods/horizontal-payment-plans-after.png',
   cssString: `
 /* --- Offer Page Mod: Horizontal Payment Plans & Full-Width Button --- */
 

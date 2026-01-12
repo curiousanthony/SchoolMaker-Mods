@@ -11,6 +11,7 @@ export const mod: Mod = {
   modType: 'javascript',
   mediaBeforeUrl: '/images/mods/relative-post-date-before.png',
   mediaUrl: '/images/mods/relative-post-date-after.png',
+  bannerUrl: '/images/mods/relative-post-date-after.png',
   previewEnabled: true,
   functionString: `(config) => {
      const datePattern = /\\d{1,2}\\s\\w+\\s\\d{4}/;

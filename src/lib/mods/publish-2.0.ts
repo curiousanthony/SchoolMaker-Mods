@@ -11,6 +11,7 @@ export const mod: Mod = {
   published: true,
   modType: 'javascript',
   previewEnabled: true,
+  bannerUrl: '/images/mods/publish-2.0-banner.png',
   mediaBeforeUrl: '/images/mods/publish-2.0-before.png',
   mediaUrl: '/images/mods/publish-2.0-after.webm',
   configOptions: [

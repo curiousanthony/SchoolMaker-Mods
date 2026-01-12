@@ -11,6 +11,7 @@ export const mod: Mod = {
   mediaBeforeUrl: "/images/mods/community-level-badge-before.png",
   mediaUrl: "/images/mods/community-level-badge-after.png",
   previewEnabled: true,
+  bannerUrl: "/images/mods/community-level-badge-banner.png",
   modType: 'javascript',
   configDescription: 'mod_community-level-badge_config_description',
   configOptions: [

@@ -28,7 +28,7 @@ export function AppFooter() {
         </div>
         
         <div className="flex-initial text-center text-sm text-muted-foreground order-last md:order-none max-w-md">
-           <p>{t('createdBy')}</p>
+           <p dangerouslySetInnerHTML={{ __html: t('createdBy')}} />
            <p className="mb-1" dangerouslySetInnerHTML={{ __html: t('footerDisclaimer')}} />
         </div>
 

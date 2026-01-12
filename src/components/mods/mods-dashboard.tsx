@@ -565,6 +565,7 @@ export default function ModsDashboard() {
                   <ModCard
                       key={mod.id}
                       mod={mod}
+                      layout={isMobile ? 'grid' : layout}
                       onToggle={() => handleToggleMod(mod.id)}
                       onConfigure={() => handleOpenConfig(mod)}
                       onPreview={() => setPreviewingMod(mod)}
@@ -648,3 +649,4 @@ export default function ModsDashboard() {
 }
 
     
+

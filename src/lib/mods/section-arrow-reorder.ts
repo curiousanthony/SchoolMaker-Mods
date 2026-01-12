@@ -12,6 +12,7 @@ export const mod: Mod = {
   previewEnabled: true,
   mediaBeforeUrl: '/images/mods/section-arrow-reorder-before.png',
   mediaUrl: '/images/mods/section-arrow-reorder-after.png',
+  bannerUrl: '/images/mods/section-arrow-reorder-banner.png',
   cssString: `
 /* Reorder the arrow in section headers to the right */
 [data-target^="#products_section_"] > svg {

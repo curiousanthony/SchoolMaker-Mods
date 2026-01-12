@@ -12,6 +12,7 @@ export const mod: Mod = {
   previewEnabled: true,
   mediaBeforeUrl: '/images/mods/chapter-style-customizer-before.png',
   mediaUrl: '/images/mods/chapter-style-customizer-after.png',
+  bannerUrl: '/images/mods/chapter-style-customizer-banner.png',
   configOptions: [
     {
       key: 'backgroundColor',

@@ -8,6 +8,7 @@ export const mod: Mod = {
   tags: ['navigation', 'program'],
   enabled: true,
   published: true,
+  bannerUrl: '/images/mods/placeholder-banner.png',
   modType: 'javascript',
   configOptions: [
     {

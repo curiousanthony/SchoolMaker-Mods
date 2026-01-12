@@ -8,6 +8,7 @@ export const mod: Mod = {
   tags: ['lessons', 'q&a', 'ux'],
   enabled: false,
   published: true,
+  bannerUrl: '/images/mods/placeholder-banner.png',
   modType: 'javascript',
   functionString: `(config) => {
       setTimeout(() => {

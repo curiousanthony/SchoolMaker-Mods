@@ -8,6 +8,7 @@ export const mod: Mod = {
   tags: ['ui', 'branding', 'font', 'customization'],
   enabled: false,
   published: true,
+  bannerUrl: '/images/mods/global-font-customizer-banner.png',
   modType: 'css',
   configOptions: [
     {

@@ -9,7 +9,7 @@ export const mod: Mod = {
   enabled: false,
   published: true,
   modType: 'javascript',
-  bannerUrl: 'https://picsum.photos/seed/collapsible/600/338',
+  bannerUrl: '/images/mods/collapsible-chapters-banner.png',
   mediaBeforeUrl: '/images/mods/collapsible-chapters-before.webm',
   mediaUrl: '/images/mods/collapsible-chapters-after.webm',
   previewEnabled: true,

@@ -1,3 +1,4 @@
+
 "use client"
 
 import type { Mod } from '@/types';
@@ -64,14 +65,14 @@ export default function PreviewModal({ mod, onClose }: PreviewModalProps) {
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-5xl">
+      <DialogContent className="sm:max-w-5xl flex flex-col max-h-[90vh]">
         <DialogHeader>
           <DialogTitle className="font-headline">{t('previewTitle', { modName })}</DialogTitle>
            <DialogDescription>
             {t('previewDescription')}
           </DialogDescription>
         </DialogHeader>
-        <div className="mt-4 bg-muted rounded-lg overflow-hidden">
+        <div className="mt-4 bg-muted rounded-lg overflow-auto">
           {videoId ? (
             <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
               <iframe

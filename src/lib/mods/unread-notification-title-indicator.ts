@@ -11,6 +11,7 @@ export const mod: Mod = {
   modType: 'javascript',
   mediaUrl: '/images/mods/unread-notification-title-indicator-after.png',
   previewEnabled: true,
+  bannerUrl: '/images/mods/unread-notification-title-indicator-banner.png',
   configOptions: [
     {
       key: 'notificationSymbol',

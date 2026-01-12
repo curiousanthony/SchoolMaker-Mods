@@ -37,7 +37,7 @@ export default function ModCard({ mod, layout, onToggle, onConfigure, onPreview,
   ) : null;
 
   return (
-    <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col">
+    <Card className={cn("hover:shadow-lg transition-shadow duration-300 overflow-hidden flex", layout === 'grid' ? 'flex-col' : 'flex-col')}>
       <BannerImage />
       <div className="flex flex-col flex-grow">
         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">

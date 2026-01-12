@@ -538,29 +538,32 @@ export default function ModsDashboard() {
                           <p className="text-sm text-muted-foreground font-medium">({t('showingMods', {count: filteredMods.length})})</p>
                       </div>
                    
-                    {/* {!isMobile && (
-                      <div className="flex items-center gap-2 order-3 ml-auto">
-                          <Button variant={layout === 'grid' ? 'default' : 'outline'} size="sm" onClick={() => setLayout('grid')}>
-                            <LayoutGrid className="mr-2 h-4 w-4" />
-                            {t('layoutGrid')}
-                          </Button>
-                          <Button variant={layout === 'list' ? 'default' : 'outline'} size="sm" onClick={() => setLayout('list')}>
-                            <List className="mr-2 h-4 w-4" />
-                            {t('layoutList')}
-                          </Button>
-                      </div>
-                    )} */}
+                    <div className="flex items-center gap-2 order-3 ml-auto hidden">
+                        <Button variant={layout === 'grid' ? 'default' : 'outline'} size="sm" onClick={() => setLayout('grid')}>
+                          <LayoutGrid className="mr-2 h-4 w-4" />
+                          {t('layoutGrid')}
+                        </Button>
+                        <Button variant={layout === 'list' ? 'default' : 'outline'} size="sm" onClick={() => setLayout('list')}>
+                          <List className="mr-2 h-4 w-4" />
+                          {t('layoutList')}
+                        </Button>
+                    </div>
                   </div>
                 </div>
             </div>
 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all">
+            <div className={cn(
+              "transition-all",
+              layout === 'grid'
+                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                : "flex flex-col gap-4"
+            )}>
                 {filteredMods.map(mod =>
                   <ModCard
                       key={mod.id}
                       mod={mod}
-                      layout={'grid'}
+                      layout={layout}
                       onToggle={() => handleToggleMod(mod.id)}
                       onConfigure={() => handleOpenConfig(mod)}
                       onPreview={() => setPreviewingMod(mod)}
@@ -644,6 +647,7 @@ export default function ModsDashboard() {
 }
 
     
+
 
 
 

@@ -22,4 +22,5 @@ export const mod: Mod = {
   mediaBeforeUrl: '/images/mods/centered-desktop-navigation-before.png',
   mediaUrl: '/images/mods/centered-desktop-navigation-after.png',
   previewEnabled: true,
+  bannerUrl: '/images/mods/centered-desktop-navigation-banner.png'
 };

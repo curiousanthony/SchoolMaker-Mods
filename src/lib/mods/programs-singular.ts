@@ -23,4 +23,5 @@ export const mod: Mod = {
   mediaBeforeUrl: '/images/mods/programs-singular-before.png',
   mediaUrl: '/images/mods/programs-singular-after.png',
   previewEnabled: true,
+  bannerUrl: '/images/mods/programs-singular-banner.png',
 };

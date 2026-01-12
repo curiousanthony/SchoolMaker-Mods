@@ -10,6 +10,7 @@ export const mod: Mod = {
   published: true,
   modType: 'javascript',
   mediaUrl: '/images/mods/community-xp-animation-after.webm',
+  bannerUrl: '/images/mods/community-xp-animation-banner.png',
   previewEnabled: true,
   configOptions: [
     {

@@ -21,4 +21,5 @@ export const mod: Mod = {
   mediaBeforeUrl: '/images/mods/transform-school-name-before.png',
   mediaUrl: '/images/mods/transform-school-name-after.png',
   previewEnabled: true,
+  bannerUrl: '/images/mods/transform-school-name-banner.png',
 };

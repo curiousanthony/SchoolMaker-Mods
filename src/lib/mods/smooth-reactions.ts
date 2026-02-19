@@ -10,15 +10,17 @@ export const mod: Mod = {
   published: true,
   modType: 'css',
   bannerUrl: '/images/mods/smooth-reactions-banner.png',
+  mediaBeforeUrl: '/images/mods/smooth-reactions-before.png',
+  mediaUrl: '/images/mods/smooth-reactions-after.png',
   cssString: `
 /* --- Mod: Smooth Reactions --- */
-[id^="stats_forums_topic_"] dialog {
+:is([id^="stats_forums_topic_"], [id^="modal_stats_forums_topic_"]) dialog {
   transform: scale(1.7) !important;
   overflow: visible !important;
   gap: 0.15rem;
 }
 
-[id^="stats_forums_topic_"] dialog a {
+:is([id^="stats_forums_topic_"], [id^="modal_stats_forums_topic_"]) dialog a {
   padding-inline: .2rem !important;
   padding-block: .1rem !important;
   transition: transform .1s ease-in-out;
@@ -27,7 +29,7 @@ export const mod: Mod = {
   transform: scale(1.4) !important;
 }
 
-[id^="stats_forums_topic_"] dialog a[data-highlighted] {
+:is([id^="stats_forums_topic_"], [id^="modal_stats_forums_topic_"]) dialog a[data-highlighted] {
   transform: scale(1.9) !important;
 }
   `,

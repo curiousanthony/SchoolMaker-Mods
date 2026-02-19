@@ -1,4 +1,3 @@
-
 {
   "appName": "SchoolMaker Mods",
   "pageTitle": "Explorer les Mods",
@@ -22,7 +21,7 @@
   "noModsFound": "Aucun mod ne correspond à vos critères.",
   "noTagsFound": "Aucun tag trouvé.",
   "whyTitle": "Pourquoi des Mods ?",
-  "whyContent": "L'équipe de SchoolMaker doit se concentrer sur des fonctionnalités qui ont du sens pour une majorité de clients. SchoolMaker Mods vous permet d'ajouter des fonctionnalités ou de personnaliser l'apparence de votre école en fonction de vos besoins spécifiques, sans écrire de code. Cet outil simplifie le processus d'activation, de désactivation et de configuration de différentes fonctionnalités sans avoir à éditer manuellement le code.",
+  "whyContent": "L'équipe de SchoolMaker doit se concentrer sur des fonctionnalités qui ont du sens pour une majority de clients. SchoolMaker Mods vous permet d'ajouter des fonctionnalités ou de personnaliser l'apparence de votre école en fonction de vos besoins spécifiques, sans écrire de code. Cet outil simplifie le processus d'activation, de désactivation et de configuration de différentes fonctionnalités sans avoir à éditer manuellement le code.",
   "generatedCodeTitle": "Code Généré",
   "generatedCodeDescription": "Voici le code généré pour tous les mods activés, prêt à être copié.",
   "copyCode": "Copier le code",
@@ -140,6 +139,8 @@
   "mod_unread-notification-title-indicator_config_notificationSymbol_label": "Symbole de notification",
   "mod_collapsible-chapters_name": "Chapitres rétractables",
   "mod_collapsible-chapters_description": "Transforme les groupes de sections (chapitres) d'un programme en éléments rétractables pour une expérience utilisateur plus propre et organisée.",
+  "mod_smooth-reactions_name": "Smooth Reactions",
+  "mod_smooth-reactions_description": "Ajoute une animation de mise à l'échelle fluide aux réactions de la communauté, imitant l'expérience LinkedIn.",
   "category_all": "Tous",
   "category_appearance": "Apparence",
   "category_functionality": "Fonctionnalité",

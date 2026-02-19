@@ -1,4 +1,3 @@
-
 {
   "appName": "SchoolMaker Mods",
   "pageTitle": "Explore Mods",
@@ -140,6 +139,8 @@
   "mod_unread-notification-title-indicator_config_notificationSymbol_label": "Notification Symbol",
   "mod_collapsible-chapters_name": "Collapsible Chapters",
   "mod_collapsible-chapters_description": "Transforms program's section groups (chapters) into collapsible elements for a cleaner and more organized user experience.",
+  "mod_smooth-reactions_name": "Smooth Reactions",
+  "mod_smooth-reactions_description": "Adds a smooth scaling animation to community reactions, mimicking the LinkedIn experience.",
   "category_all": "All",
   "category_appearance": "Appearance",
   "category_functionality": "Functionality",

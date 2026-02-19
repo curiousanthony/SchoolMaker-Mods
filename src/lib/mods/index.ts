@@ -17,6 +17,7 @@ import { mod as communityXpAnimationMod } from './community-xp-animation';
 import { mod as publish20Mod } from './publish-2.0';
 import { mod as unreadNotificationTitleIndicatorMod } from './unread-notification-title-indicator';
 import { mod as collapsibleChaptersMod } from './collapsible-chapters';
+import { mod as smoothReactionsMod } from './smooth-reactions';
 
 const allModsRaw: Mod[] = [
   transformSchoolNameMod,
@@ -37,6 +38,7 @@ const allModsRaw: Mod[] = [
   publish20Mod,
   unreadNotificationTitleIndicatorMod,
   collapsibleChaptersMod,
+  smoothReactionsMod,
 ];
 
 // Filter out mods that are explicitly set to `published: false`

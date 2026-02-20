@@ -33,7 +33,7 @@ export const mod: Mod = {
       return levelConfigs.find(c => c.level === numericLevel);
     }
 
-    const postsEl = qsa('div[id^="forums_topic_"], [id^="modal_forums_topic_"');
+    const postsEl = qsa('div[id^="forums_topic_"], div[id^="modal_forums_topic_]"');
     if (!postsEl || postsEl.length === 0) return;
 
     postsEl.forEach(postEl => {

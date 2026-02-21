@@ -12,6 +12,7 @@ export const mod: Mod = {
   bannerUrl: '/images/mods/smooth-reactions-banner.png',
   mediaBeforeUrl: '/images/mods/smooth-reactions-before.png',
   mediaUrl: '/images/mods/smooth-reactions-after.png',
+  previewEnabled: true,
   cssString: `
 /* --- Mod: Smooth Reactions --- */
 :is([id^="stats_forums_topic_"], [id^="modal_stats_forums_topic_"]) dialog {
